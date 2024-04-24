@@ -7,6 +7,9 @@ import org.example.seminarTwo.homework.random.RandomDateProcessor;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.*;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -21,6 +24,7 @@ public class Homework {
      *  Реализовать класс RandomDateProcessor по аналогии с RandomIntegerProcessor, который обрабатывает аннотацию.
      */
     public static void main(String[] args) {
+        Date date = new Date();
         Buyer buyer = new Buyer("Anton", new Date(611160507000L));
         Buyer buyer1 = new Buyer("Dmitry");
         Buyer buyer2 = new Buyer("Volodya", new Date(61116050700L));
@@ -44,16 +48,15 @@ public class Homework {
         System.out.println(buyer1);
         System.out.println(buyer2);
         System.out.println(buyer3);
-//        try {
-//            Field field = Buyer.class.getDeclaredField("birthDate");
-//            System.out.println(field.getType() + " - getType");
-//            field.setAccessible(true);
-//            System.out.println(field.get(buyer1) + "- get(buyer1)");
-//            System.out.println(field.getAnnotation(RandomDate.class));
-//        } catch (NoSuchFieldException e) {
-//            throw new RuntimeException(e);
-//        } catch (IllegalAccessException e){
-//            System.out.println(e.getMessage());
-//        }
+        System.out.println("********************");
+        try {
+            Field field =Buyer.class.getDeclaredField("birthDate");
+            field.setAccessible(true);
+            System.out.println(field.getType().getName());
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+        LocalDateTime localDateTime = LocalDateTime.MIN;
+        System.out.println(localDateTime.format(DateTimeFormatter.ISO_DATE));
     }
 }

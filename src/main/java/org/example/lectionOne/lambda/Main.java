@@ -1,4 +1,4 @@
-package org.example;
+package org.example.lectionOne.lambda;
 
 public class Main {
     static PlainInterface plainInterface;

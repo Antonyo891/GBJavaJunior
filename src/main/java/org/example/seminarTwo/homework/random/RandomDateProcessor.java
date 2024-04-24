@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomDateProcessor {
     public static void processRandomData(Object object) throws IllegalAccessException {
         for (Field declaredField : object.getClass().getDeclaredFields()) {
-            if (declaredField.getType().toString().toLowerCase().contains("date")){
+            if (declaredField.getType().getName().toString().equals("java.util.Date")){
                 RandomDate annotation = declaredField.getAnnotation(RandomDate.class);
                 if (annotation!=null) {
                     declaredField.setAccessible(true);
