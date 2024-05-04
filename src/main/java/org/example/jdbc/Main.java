@@ -72,6 +72,44 @@ public class Main {
                        .append(resultSet.getString("number_group")).append("\n");
            }
            System.out.println(output);
+           statement.execute("""
+                   CREATE TABLE IF NOT EXISTS Groupss(
+                   id bigint auto_increment not null primary key,
+                   name varchar(128) not null);
+                   """);
+           statement.execute("""
+                   ALTER TABLE Students
+                   ADD group_id bigint;
+                   """);
+           statement.execute("""
+                   ALTER TABLE Students
+                   ADD CONSTRAINT fk_group_id
+                   FOREIGN KEY (group_id) REFERENCES Groupss(id)
+                   """);
+           System.out.println(statement.executeUpdate("""
+                   INSERT INTO Groupss (name) VALUES
+                   ('106642'),
+                   ('54545'),
+                   ('555555')
+                   """));
+           statement.executeUpdate("""
+                   update Students
+                   set group_id =
+                   (select id from Groupss where Groupss.name = Students.number_group
+                   limit 1) where group_id is null;
+                   """);
+           resultSet = statement.executeQuery("""
+                   SELECT id,first_name, second_name, group_id FROM Students;
+                   """);
+           output = new StringBuilder();
+           while (resultSet.next()){
+               output.append(resultSet.getLong("id")).append(" ")
+                       .append(resultSet.getString("first_name")).append(" ")
+                       .append(resultSet.getString("second_name")).append(" ")
+                       .append(resultSet.getInt("group_id")).append("\n");
+           }
+           System.out.println(output);
+           System.out.println(statement.getGeneratedKeys());
        } catch (SQLException e) {
            throw new RuntimeException(e);
        }
