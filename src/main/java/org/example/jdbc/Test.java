@@ -21,7 +21,7 @@ public class Test {
 //        System.out.println(students);
         try (Connection connection = DriverManager.getConnection(
                 URL, USER, PASSWORD);) {
-            insertIntoTable(STUDENTS_DATABASE,connection,students.get(0));
+            insertIntoStudents(connection,students.get(0));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

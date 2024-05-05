@@ -6,7 +6,10 @@ public class Student {
     private String firstName;
     private String secondName;
     private String numberGroup;
-    private UUID uuid;
+    private UUID studentsUUID;
+    private Long studentId;
+    private Long groupId;
+    private UUID groupUUID;
 
     public Student(String firstName, String secondName, String numberGroup) {
         this.firstName = firstName;
@@ -15,14 +18,23 @@ public class Student {
     }
     public Student(String firstName, String secondName, String numberGroup,String uuid) {
         this(firstName,secondName,numberGroup);
-        this.uuid = UUID.fromString(uuid);
+        this.studentsUUID = UUID.fromString(uuid);
+    }
+    public Student(String firstName, String secondName, String numberGroup,String uuid,Long groupId) {
+        this(firstName,secondName,numberGroup,uuid);
+        this.groupId = groupId;
+    }
+    public Student(String firstName, String secondName, String numberGroup,String uuid,Long groupId,UUID groupUUID) {
+        this(firstName,secondName,numberGroup,uuid,groupId);
+        this.groupUUID = groupUUID;
     }
 
-    public void setUuid(UUID uuid) {
-        if (this.uuid==null) this.uuid = uuid;
+
+    public void setStudentsUUID(UUID studentsUUID) {
+        if (this.studentsUUID ==null) this.studentsUUID = studentsUUID;
     }
-    public void setUuid(String uuid) {
-        if (this.uuid==null) this.uuid = UUID.fromString(uuid);
+    public void setStudentsUUID(String uuid) {
+        if (this.studentsUUID ==null) this.studentsUUID = UUID.fromString(uuid);
     }
 
     public String getFirstName() {
@@ -37,9 +49,25 @@ public class Student {
         return numberGroup;
     }
 
-    public UUID getUuid() {
-        if (this.uuid==null) throw  new RuntimeException();
-        return uuid;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
+    public void setGroupUUID(UUID groupUUID) {
+        this.groupUUID = groupUUID;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
+
+    public UUID getStudentsUUID() {
+        if (this.studentsUUID ==null) throw  new RuntimeException();
+        return studentsUUID;
+    }
+
+    public Long getStudentId() {
+        return studentId;
     }
 
     public String[] getStudentInfo(){
@@ -51,8 +79,9 @@ public class Student {
 
 
     public String[] getFullStudentInfo(){
-        return new String[] {firstName,secondName,numberGroup,uuid.toString()};
+        return new String[] {firstName,secondName,numberGroup, studentsUUID.toString()};
     };
+
 
     @Override
     public String toString() {
@@ -60,7 +89,10 @@ public class Student {
                 "firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", numberGroup='" + numberGroup + '\'' +
-                ", uuid=" + uuid +
+                ", studentsUUID=" + studentsUUID +
+                ", studentId=" + studentId +
+                ", groupId=" + groupId +
+                ", groupUUID=" + groupUUID +
                 '}';
     }
 }
