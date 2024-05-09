@@ -1,4 +1,4 @@
-package org.example.lessonFour;
+package org.example.seminarFour;
 
 /*Выполнять домашнее задание с семниара!!!
 
@@ -8,6 +8,8 @@ package org.example.lessonFour;
 3. ... поупражняться с разными запросами ...*/
 public class Seminar {
     public static void main(String[] args) {
+        Connector connector = new Connector();
+
 
     }
 }
