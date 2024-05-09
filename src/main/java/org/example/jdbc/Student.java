@@ -3,13 +3,12 @@ package org.example.jdbc;
 import java.util.UUID;
 
 public class Student {
+    private Long studentId;
     private String firstName;
     private String secondName;
     private String numberGroup;
-    private UUID studentsUUID;
-    private Long studentId;
     private Long groupId;
-    private UUID groupUUID;
+    private UUID studentsUUID;
 
     public Student(String firstName, String secondName, String numberGroup) {
         this.firstName = firstName;
@@ -23,10 +22,6 @@ public class Student {
     public Student(String firstName, String secondName, String numberGroup,String uuid,Long groupId) {
         this(firstName,secondName,numberGroup,uuid);
         this.groupId = groupId;
-    }
-    public Student(String firstName, String secondName, String numberGroup,String uuid,Long groupId,UUID groupUUID) {
-        this(firstName,secondName,numberGroup,uuid,groupId);
-        this.groupUUID = groupUUID;
     }
 
 
@@ -51,10 +46,6 @@ public class Student {
 
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
-    }
-
-    public void setGroupUUID(UUID groupUUID) {
-        this.groupUUID = groupUUID;
     }
 
     public void setStudentId(Long studentId) {
@@ -92,7 +83,6 @@ public class Student {
                 ", studentsUUID=" + studentsUUID +
                 ", studentId=" + studentId +
                 ", groupId=" + groupId +
-                ", groupUUID=" + groupUUID +
                 '}';
     }
 }
