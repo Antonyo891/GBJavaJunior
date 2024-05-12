@@ -2,24 +2,17 @@ package org.example.seminarFour;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataBuilder;
 import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-import java.sql.DriverManager;
+import org.hibernate.cfg.Configuration;
 
 public class Connector {
-    private final StandardServiceRegistry REGISTRY;
+    private final String DATABASE = "seminarFour1.cfg.xml";
     private final SessionFactory SESION;
+    private final Configuration CONFIGURATION;
 
     public Connector() {
-        REGISTRY = new StandardServiceRegistryBuilder()
-                .configure("seminarFour.cfg.xml")
-                .build();
-        this.SESION = new MetadataSources()
-                .buildMetadata(REGISTRY)
-                .buildSessionFactory();
+        this.CONFIGURATION = new Configuration().configure(DATABASE);
+        this.SESION = CONFIGURATION.buildSessionFactory();
     }
     public Session getSession(){
         return SESION.openSession();

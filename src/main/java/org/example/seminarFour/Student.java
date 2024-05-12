@@ -5,39 +5,39 @@ import org.joda.time.DateTime;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Entity()
+@Entity
 @Table(name = "students")
-
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long studentId;
+    private Long studentId;
     @Column(name = "first_name",length = 256)
     private  String firstName;
     @Column(name = "second_name",unique = true,length = 256)
     private String secondName;
     @Column(name = "number_group",length = 128)
     private String numberGroup;
+
     @Column(name = "StudentsUUID",length = 36)
     private String studentsUUID;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Group group;
 
     public Student(String firstName, String secondName, String numberGroup) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.numberGroup = numberGroup;
-
     }
-
     public Student() {
-    }
 
-    public long getStudentId() {
+    }
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 
@@ -70,12 +70,24 @@ public class Student {
     }
 
     public void setStudentsUUID(String studentsUUID) {
-        if (studentsUUID==null) createStudentUUID();
-        else this.studentsUUID = studentsUUID;
+    this.studentsUUID = studentsUUID;
+    }
+
+    public void setStudentId(long studentId) {
+        this.studentId = studentId;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public void createStudentUUID(){
-        this.studentsUUID = new UUID(studentId, DateTime.now().getMillis()).toString();
+        if (this.studentsUUID==null)
+            this.studentsUUID = new UUID(studentId, DateTime.now().getMillis()).toString();
     }
 
     @Override
@@ -86,6 +98,7 @@ public class Student {
                 ", secondName='" + secondName + '\'' +
                 ", numberGroup='" + numberGroup + '\'' +
                 ", studentsUUID='" + studentsUUID + '\'' +
+                ", group=" + group +
                 '}';
     }
 }
